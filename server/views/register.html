@@ -2,7 +2,7 @@
  * @Author: F1nley
  * @Date: 2021-10-01 09:41:15
  * @LastEditors: F1nley
- * @LastEditTime: 2021-10-01 10:40:18
+ * @LastEditTime: 2021-10-02 13:55:46
  * @Description: 注册页面
 -->
 
@@ -12,12 +12,21 @@
 <head>
     <meta charset="UTF-8">
     <title>注册</title>
+    <script src="http://static.runoob.com/assets/jquery-validation-1.14.0/lib/jquery.js"></script>
+    <script src="http://static.runoob.com/assets/jquery-validation-1.14.0/dist/jquery.validate.min.js"></script>
+    <script src="static/js/register.js"></script>
 </head>
 
 <body>
-    <h1>
-        {{ .title }}
-    </h1>
+    <form name="register-form" id="register-form" action="">
+        <fieldset>
+            <input type="email" name="password" id="password">
+            <input type="text" name="password" id="password">
+            <input type="password" name="password" id="password">
+            <input type="password" name="password-confirm" id="password-confirm">
+            <input type="submit" value="注册">
+        </fieldset>
+    </form>
 </body>
 
 </html>

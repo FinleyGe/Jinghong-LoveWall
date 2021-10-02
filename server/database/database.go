@@ -2,7 +2,7 @@
  * @Author: F1nley
  * @Date: 2021-10-01 10:52:56
  * @LastEditors: F1nley
- * @LastEditTime: 2021-10-01 23:40:14
+ * @LastEditTime: 2021-10-02 11:15:57
  * @Description:数据库操作工具
  */
 
@@ -33,7 +33,7 @@ func InitDB() {
 	}
 
 	ORM.ShowSQL(true)
-	go pingDB()
+	// go pingDB()
 }
 
 func pingDB() {
