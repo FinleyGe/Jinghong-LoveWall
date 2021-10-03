@@ -2,13 +2,16 @@
  * @Author: F1nley
  * @Date: 2021-10-01 22:39:48
  * @LastEditors: F1nley
- * @LastEditTime: 2021-10-02 21:20:04
+ * @LastEditTime: 2021-10-03 23:52:00
  * @Description: 用户数据库操作
  */
 
 package database
 
-import "Jinghong-LoveWall/server/models"
+import (
+	"Jinghong-LoveWall/server/models"
+	"Jinghong-LoveWall/server/util"
+)
 
 type UserState int8
 
@@ -24,10 +27,35 @@ func UserExist(email string) (bool, error) {
 	})
 }
 
+// 用户注册
 func UserRegister(email, username, password string) (int64, error) {
 	user := new(models.User)
 	user.EMail = email
 	user.Name = username
 	user.Pwd = password
+	user.Logged = false
 	return UserTable.Insert(user)
+}
+
+// 查找用户 通过email
+func UserInfoByEmail(email string) (models.User, error) {
+	userInfo := make([]models.User, 0)
+	err := UserTable.Where("e_mail = ?", email).Find(&userInfo)
+	return userInfo[0], err
+}
+
+// 用户登录
+func UserLogin(id int64) (string, error) {
+	user := new(models.User)
+	user.Id = id
+	user.Logged = true
+
+	UserTable.ID(id).Cols("logged").Update(user)
+
+	t, err := util.GetToken(id)
+	var token models.Token
+	token.Uid = id
+	token.Token = t
+	TokenTable.Insert(token)
+	return t, err
 }

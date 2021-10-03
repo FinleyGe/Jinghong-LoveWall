@@ -2,11 +2,11 @@
  * @Author: F1nley
  * @Date: 2021-10-01 08:17:42
  * @LastEditors: F1nley
- * @LastEditTime: 2021-10-03 12:19:28
+ * @LastEditTime: 2021-10-03 23:17:13
  * @Description: 设置
  */
 
-package server
+package global
 
 const (
 	SERVER_ADDR     string = ":8080"

@@ -2,13 +2,13 @@
  * @Author: F1nley
  * @Date: 2021-10-03 10:40:15
  * @LastEditors: F1nley
- * @LastEditTime: 2021-10-03 18:47:22
+ * @LastEditTime: 2021-10-03 23:18:02
  * @Description: token有关的工具类
  */
 package util
 
 import (
-	"Jinghong-LoveWall/server"
+	"Jinghong-LoveWall/server/global"
 	"crypto/aes"
 	"crypto/cipher"
 	"encoding/base64"
@@ -22,7 +22,7 @@ var isInited bool = false
 
 func initToken() error {
 	var e error = nil
-	c, e = aes.NewCipher([]byte(server.TokenPrivateKey))
+	c, e = aes.NewCipher([]byte(global.TokenPrivateKey))
 	if e != nil {
 		return e
 	}

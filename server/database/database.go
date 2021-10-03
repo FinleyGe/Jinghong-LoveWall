@@ -2,7 +2,7 @@
  * @Author: F1nley
  * @Date: 2021-10-01 10:52:56
  * @LastEditors: F1nley
- * @LastEditTime: 2021-10-03 10:33:52
+ * @LastEditTime: 2021-10-03 23:01:49
  * @Description:数据库操作工具
  */
 
@@ -57,16 +57,4 @@ func InitDB() {
 	UserTable.ShowSQL(true)
 	MessageTable.ShowSQL(true)
 	TokenTable.ShowSQL(true)
-
 }
-
-// func pingDB() {
-// 	// 每5秒检查一次连接是否正常
-// 	for {
-// 		err := UserTable.Ping()
-// 		if err != nil {
-// 			log.Fatalln(err)
-// 		}
-// 		time.Sleep(5 * time.Second)
-// 	}
-// }
