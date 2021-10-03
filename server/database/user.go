@@ -19,7 +19,7 @@ const (
 )
 
 func UserExist(email string) (bool, error) {
-	return ORM.Exist(&models.User{
+	return UserTable.Exist(&models.User{
 		EMail: email,
 	})
 }
@@ -29,5 +29,5 @@ func UserRegister(email, username, password string) (int64, error) {
 	user.EMail = email
 	user.Name = username
 	user.Pwd = password
-	return ORM.Insert(user)
+	return UserTable.Insert(user)
 }
