@@ -5,7 +5,7 @@
 # API
 
 ## [1] [用户注册] [POST]
-
+URL: domain:port/api/register
 #### 传入数据
 ```
 {
@@ -26,7 +26,7 @@
 ```
 
 ## [2] [用户登录] [POST]
-
+URL: domain:port/api/login
 #### 传入数据
 
 ```
