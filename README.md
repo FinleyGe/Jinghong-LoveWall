@@ -114,3 +114,30 @@ URL: domain:port/api/new_message
 
 }
 ```
+
+## [5] 获取指定的信息 [GET]
+URL: domain:port/api/message
+
+#### 传入数据
+```
+{
+    "id": "1" // 传入信息的id
+}
+```
+
+#### 返回数据
+```
+{
+    "return_value" : 0 // 成功
+                     -1 // 请求错误
+                     -2 // 服务器错误
+                     -3 // 无该信息
+    "uid" : 0 // 0 表示该信息是匿名的，防止泄露，客户端无法得知信息的用户
+    "content" : "内容" // 信息的内容
+    "permit_comment" : 0 // 不允许评论
+                       1 // 允许评论
+    "create_time"  // 创建时间
+    "update_time" // 更新时间
+
+}
+```
