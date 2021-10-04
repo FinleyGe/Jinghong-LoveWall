@@ -66,3 +66,26 @@ URL: domain:port/api/login
     "token" : "xxxx" // token 客户端保存，需要token时需要上传。如果登录失败，返回的token是空
 }
 ```
+
+
+## [3] 用户登出 [POST]
+
+URL: domain:port/api/logout
+
+#### 传入数据
+```
+{
+    "token" : "xxx"  // 传入token
+}
+```
+
+#### 返回数据
+```
+{
+    "return_value" : 0 // 成功登出
+                     -1 // 参数错误
+                     -2 // 服务器错误
+                     -3 // token错误
+
+}
+```

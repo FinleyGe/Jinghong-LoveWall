@@ -2,7 +2,7 @@
  * @Author: F1nley
  * @Date: 2021-10-01 22:39:48
  * @LastEditors: F1nley
- * @LastEditTime: 2021-10-03 23:52:00
+ * @LastEditTime: 2021-10-04 10:55:08
  * @Description: 用户数据库操作
  */
 
@@ -11,6 +11,7 @@ package database
 import (
 	"Jinghong-LoveWall/server/models"
 	"Jinghong-LoveWall/server/util"
+	"log"
 )
 
 type UserState int8
@@ -58,4 +59,14 @@ func UserLogin(id int64) (string, error) {
 	token.Token = t
 	TokenTable.Insert(token)
 	return t, err
+}
+
+func UserLogout(uid int64) error {
+	user := new(models.User)
+	user.Id = uid
+	user.Logged = false
+
+	a, e := UserTable.ID(uid).Cols("logged").Update(user)
+	log.Println("UserTable update", a)
+	return e
 }

@@ -2,7 +2,7 @@
  * @Author: F1nley
  * @Date: 2021-10-01 10:52:56
  * @LastEditors: F1nley
- * @LastEditTime: 2021-10-03 23:01:49
+ * @LastEditTime: 2021-10-04 10:38:27
  * @Description:数据库操作工具
  */
 
@@ -21,7 +21,7 @@ var TokenTable *xorm.Engine
 
 func InitDB() {
 	var err error
-	UserTable, err = xorm.NewEngine("sqlite3", "./server/database/user.sqlite3")
+	UserTable, err = xorm.NewEngine("sqlite3", "./server/database/db/user.sqlite3")
 	if err != nil {
 		log.Fatalln(err)
 		return
@@ -32,7 +32,7 @@ func InitDB() {
 		return
 	}
 
-	MessageTable, err = xorm.NewEngine("sqlite3", "./server/database/message.sqlite3")
+	MessageTable, err = xorm.NewEngine("sqlite3", "./server/database/db/message.sqlite3")
 	if err != nil {
 		log.Fatalln(err)
 		return
@@ -43,7 +43,7 @@ func InitDB() {
 		return
 	}
 
-	TokenTable, err = xorm.NewEngine("sqlite3", "./server/database/token.sqlite3")
+	TokenTable, err = xorm.NewEngine("sqlite3", "./server/database/db/token.sqlite3")
 	if err != nil {
 		log.Fatalln(err)
 		return
