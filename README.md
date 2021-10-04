@@ -141,3 +141,17 @@ URL: domain:port/api/message
 
 }
 ```
+
+## [6] 随机取一个信息 [GET]
+URL:domain:port/api/message/random
+#### 传入数据
+不需要
+
+#### 返回数据
+```
+{
+    "return_value" : 0 // 成功
+                     -1 // 服务器错误
+    其余参数参照[5]
+}
+```

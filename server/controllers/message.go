@@ -2,7 +2,7 @@
  * @Author: F1nley
  * @Date: 2021-10-04 11:43:49
  * @LastEditors: F1nley
- * @LastEditTime: 2021-10-04 15:47:52
+ * @LastEditTime: 2021-10-04 21:38:02
  * @Description:
  */
 
@@ -11,7 +11,6 @@ package controllers
 import (
 	"Jinghong-LoveWall/server/database"
 	"Jinghong-LoveWall/server/util"
-	"fmt"
 	"net/http"
 	"strconv"
 
@@ -68,7 +67,6 @@ func GetMessageGet(c *gin.Context) {
 		})
 		return
 	}
-	fmt.Println(message)
 	if message.Id != 0 {
 		if message.Anonymous {
 			c.JSON(http.StatusOK, gin.H{
@@ -95,4 +93,39 @@ func GetMessageGet(c *gin.Context) {
 		})
 	}
 
+}
+
+func RandomMessageGet(c *gin.Context) {
+	m, err := database.RandomMessage()
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"return_value": "-1",
+		})
+		return
+	}
+	message := m[0]
+	if message["anonymous"] == "0" {
+		// 是匿名的
+		c.JSON(http.StatusOK, gin.H{
+			"return_value":   0,
+			"uid":            0,
+			"content":        message["content"],
+			"permit_comment": message["permit_comment"],
+			"create_time":    message["create_time"],
+			"update_time":    message["update_time"],
+		})
+	} else if message["anonymous"] == "1" {
+		c.JSON(http.StatusOK, gin.H{
+			"return_value":   0,
+			"uid":            message["uid"],
+			"content":        message["content"],
+			"permit_comment": message["permit_comment"],
+			"create_time":    message["create_time"],
+			"update_time":    message["update_time"],
+		})
+	} else {
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"return_value": "-1",
+		})
+	}
 }
