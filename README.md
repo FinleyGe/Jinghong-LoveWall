@@ -1,7 +1,23 @@
 # Jinghong-LoveWall
 精弘表白墙项目
 是精弘网络技术部 试用期项目
+#如何使用后端测试？
+0. 安装好Go 1.13
+1. clone整个项目
+   ```
+   git clone git@github.com:Forever-Jimmy/Jinghong-LoveWall.git
+   ```
 
+2. 进入项目根目录，也就是`main.go`文件所在的目录。
+3. 执行:
+    ```
+    go run main.go
+    ```
+默认端口为8080
+可以使用`localhost:8080`访问
+
+例如要实现用户注册
+向`localhost:8080/api/register`POST即可
 # API
 
 ## [1] [用户注册] [POST]
@@ -46,6 +62,30 @@ URL: domain:port/api/login
                      -3, // 重复登录
                      -4, // 服务器错误
                      -5, // 重复登录
+                     -6, // 参数错误
     "token" : "xxxx" // token 客户端保存，需要token时需要上传。如果登录失败，返回的token是空
+}
+```
+
+
+## [3] 用户登出 [POST]
+
+URL: domain:port/api/logout
+
+#### 传入数据
+```
+{
+    "token" : "xxx"  // 传入token
+}
+```
+
+#### 返回数据
+```
+{
+    "return_value" : 0 // 成功登出
+                     -1 // 参数错误
+                     -2 // 服务器错误
+                     -3 // token错误
+
 }
 ```

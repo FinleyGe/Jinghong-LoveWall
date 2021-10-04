@@ -2,7 +2,7 @@
  * @Author: F1nley
  * @Date: 2021-10-03 10:40:15
  * @LastEditors: F1nley
- * @LastEditTime: 2021-10-03 23:18:02
+ * @LastEditTime: 2021-10-04 11:24:34
  * @Description: token有关的工具类
  */
 package util
@@ -59,7 +59,7 @@ func DecodeToken(data string) (int64, error) {
 	if err != nil {
 		return 0, err
 	}
-	platinText := make([]byte, len(data))
+	platinText := make([]byte, len(cipherText))
 	cfbdec.XORKeyStream(platinText, cipherText)
 	res, err := strconv.ParseInt(string(platinText), 10, 64)
 	return res, err
