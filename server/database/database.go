@@ -2,7 +2,7 @@
  * @Author: F1nley
  * @Date: 2021-10-01 10:52:56
  * @LastEditors: F1nley
- * @LastEditTime: 2021-10-04 10:38:27
+ * @LastEditTime: 2021-10-04 12:02:26
  * @Description:数据库操作工具
  */
 
@@ -37,7 +37,7 @@ func InitDB() {
 		log.Fatalln(err)
 		return
 	}
-	err = MessageTable.Sync2(new(models.Message))
+	err = MessageTable.Sync2(new(models.Message), new(models.Comment))
 	if err != nil {
 		log.Fatalln(err)
 		return

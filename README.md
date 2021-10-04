@@ -89,3 +89,28 @@ URL: domain:port/api/logout
 
 }
 ```
+
+
+## [4] [新建信息] [POST]
+URL: domain:port/api/new_message
+#### 传入数据
+```
+{
+    "token" : "xxx",
+    "content" : "内容"  // 信息内容
+    "anonymous": 0  // 不匿名
+                 1  // 匿名
+    "permit_comment" : 0 // 不允许评论
+                       -1 // 允许评论
+}
+```
+
+```
+{
+    "return_value" : 0 // 成功
+                     -1 // 参数错误
+                     -2 // token错误
+                     -3 // 服务器错误
+
+}
+```
