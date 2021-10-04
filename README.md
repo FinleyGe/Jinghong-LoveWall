@@ -62,6 +62,7 @@ URL: domain:port/api/login
                      -3, // 重复登录
                      -4, // 服务器错误
                      -5, // 重复登录
+                     -6, // 参数错误
     "token" : "xxxx" // token 客户端保存，需要token时需要上传。如果登录失败，返回的token是空
 }
 ```
