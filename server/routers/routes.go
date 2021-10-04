@@ -2,7 +2,7 @@
  * @Author: F1nley
  * @Date: 2021-10-01 09:34:18
  * @LastEditors: F1nley
- * @LastEditTime: 2021-10-04 11:00:29
+ * @LastEditTime: 2021-10-04 21:27:37
  * @Description: 配置路由
  */
 
@@ -20,6 +20,9 @@ func InitRouter() *gin.Engine {
 	// router.GET("/register", controllers.RegisterGet)
 	router.POST("/api/register", controllers.RegisterPost)
 	router.POST("/api/login", controllers.LoginPost)
-	router.POST("api/logout", controllers.LogoutPost)
+	router.POST("/api/logout", controllers.LogoutPost)
+	router.POST("/api/new_message", controllers.NewMessagePost)
+	router.GET("/api/message", controllers.GetMessageGet)
+	router.GET("/api/message/random", controllers.RandomMessageGet)
 	return router
 }
