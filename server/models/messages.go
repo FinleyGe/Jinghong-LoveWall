@@ -2,7 +2,7 @@
  * @Author: F1nley
  * @Date: 2021-10-01 21:04:19
  * @LastEditors: F1nley
- * @LastEditTime: 2021-10-05 10:24:39
+ * @LastEditTime: 2021-10-05 16:02:47
  * @Description:
  */
 package models
@@ -18,7 +18,7 @@ type Message struct {
 	CommentsID     []int64
 	CreateTime     time.Time `xorm:"created"`
 	UpdateTime     time.Time `xorm:"updated"`
-	Like           int64
+	Like           []int64
 	Picture        string
 }
 

@@ -2,7 +2,7 @@
  * @Author: F1nley
  * @Date: 2021-10-04 11:43:49
  * @LastEditors: F1nley
- * @LastEditTime: 2021-10-05 15:34:57
+ * @LastEditTime: 2021-10-05 16:12:25
  * @Description:
  */
 
@@ -57,6 +57,8 @@ func NewMessagePost(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"return_value": "0"})
 }
 
+// 获取一个Message
+
 func GetMessageGet(c *gin.Context) {
 	id, err := strconv.ParseInt(c.DefaultQuery("id", "0"), 10, 64)
 	if err != nil {
@@ -81,6 +83,8 @@ func GetMessageGet(c *gin.Context) {
 				"permit_comment": message.Permit_comment,
 				"create_time":    message.CreateTime,
 				"update_time":    message.UpdateTime,
+				"like":           message.Like,
+				"comment_id":     message.CommentsID,
 			})
 		} else {
 			c.JSON(http.StatusOK, gin.H{
@@ -90,6 +94,8 @@ func GetMessageGet(c *gin.Context) {
 				"permit_comment": message.Permit_comment,
 				"create_time":    message.CreateTime,
 				"update_time":    message.UpdateTime,
+				"like":           message.Like,
+				"comment_id":     message.CommentsID,
 			})
 		}
 	} else {
@@ -170,17 +176,65 @@ func UpdateMessage(c *gin.Context) {
 
 func DeleteMessagePost(c *gin.Context) {
 	id, err := strconv.ParseInt(c.PostForm("id"), 10, 64)
+	token := c.PostForm("token")
 	if err != nil || id <= 0 {
 		c.JSON(http.StatusBadRequest, gin.H{"return_value": "-1"})
 		return
 	}
-	if database.TokenValid(c.PostForm("token")) {
-		c.JSON(http.StatusOK, gin.H{
-			"return_value": "0",
-		})
-		return
+	if database.TokenValid(token) {
+		uid, _ := util.DecodeToken(token)
+		mes, e := database.GetMessaegById(id)
+		if e != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{
+				"return_value": "-3",
+			})
+			return
+		}
+		if mes.Uid == uid {
+			database.DeleteMessageById(id)
+			c.JSON(http.StatusOK, gin.H{
+				"return_value": "0",
+			})
+			return
+		} else {
+			c.JSON(http.StatusBadRequest, gin.H{
+				"return_value": "-2",
+			})
+		}
 	} else {
 		c.JSON(http.StatusBadRequest, gin.H{"return_value": "-2"})
+		return
+	}
+}
+
+func LikeMessagePost(c *gin.Context) {
+	id, e := strconv.ParseInt(c.PostForm("id"), 10, 64)
+	token := c.PostForm("token")
+	if id <= 0 || e != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"return_value": "-1",
+		})
+		return
+	}
+
+	if database.TokenValid(token) {
+		uid, _ := util.DecodeToken(token)
+		e = database.LikeMessage(id, uid)
+		if e != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{
+				"return_value": "-2",
+			})
+			return
+		} else {
+			c.JSON(http.StatusOK, gin.H{
+				"return_value": "0",
+			})
+			return
+		}
+	} else {
+		c.JSON(http.StatusOK, gin.H{
+			"return_value": "-3",
+		})
 		return
 	}
 }

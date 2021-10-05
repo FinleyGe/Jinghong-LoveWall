@@ -2,7 +2,7 @@
  * @Author: F1nley
  * @Date: 2021-10-04 12:18:18
  * @LastEditors: F1nley
- * @LastEditTime: 2021-10-05 15:34:14
+ * @LastEditTime: 2021-10-05 16:05:24
  * @Description: message
  */
 
@@ -70,5 +70,15 @@ func DeleteMessageById(id int64) error {
 	message.Id = id
 	a, e := MessageTable.Delete(message)
 	log.Println("Delete Message:", a)
+	return e
+}
+
+func LikeMessage(id, uid int64) error {
+	message := new(models.Message)
+	message.Like = append(message.Like, uid)
+	a, e := MessageTable.ID(id).Cols("like").Update(message)
+	if a == 0 {
+		log.Fatalln("like", a)
+	}
 	return e
 }

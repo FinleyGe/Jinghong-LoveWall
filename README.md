@@ -139,6 +139,10 @@ URL: domain:port/api/message
                        1 // 允许评论
     "create_time"  // 创建时间
     "update_time" // 更新时间
+    "like" :  // 返回一个列表，点赞的人
+    "comment_id" : // 返回评论id列表
+
+    <!-- ! 评论暂没有实现 -->
 
 }
 ```
@@ -203,6 +207,28 @@ URL:domain:port/api/message/delete
     "return_value" : 0 // 成功
                      -1 // 参数错误
                      -2 // token错误
+                     -3 // 服务器错误
 }
 ```
-=======
+
+## [9] 点赞 [POST]
+
+URL:domain:port/api/message/like
+
+#### 传入数据
+```
+{
+    "id": // 文章的id
+    "token" : // 你的token
+}
+```
+
+#### 传出数据
+```
+{
+    "return_value" : 0 // 成功
+                     -1 // 参数错误
+                     -2 //服务器错误
+                     -3 // token错误
+}
+```

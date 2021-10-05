@@ -2,7 +2,7 @@
  * @Author: F1nley
  * @Date: 2021-10-01 09:34:18
  * @LastEditors: F1nley
- * @LastEditTime: 2021-10-05 15:35:22
+ * @LastEditTime: 2021-10-05 15:55:49
  * @Description: 配置路由
  */
 
@@ -26,5 +26,6 @@ func InitRouter() *gin.Engine {
 	router.GET("/api/message/random", controllers.RandomMessageGet)
 	router.POST("/api/message/edit", controllers.UpdateMessage)
 	router.POST("/api/message/delete", controllers.DeleteMessagePost)
+	router.POST("/api/message/like", controllers.LikeMessagePost)
 	return router
 }
