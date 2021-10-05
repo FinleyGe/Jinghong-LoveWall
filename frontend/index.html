@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>爱心海</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/5.1.1/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/popper.js/2.9.3/umd/popper.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/5.1.1/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/5.1.1/js/bootstrap.min.js"></script>
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/JQuery-Snowfall/1.7.4/snowfall.jquery.min.js"></script>
+    <style type="text/css">
+    * {
+        margin: 0px;
+        padding: 0px;
+    }
+
+    body {
+        font-size: 12px;
+        font-family: "微软雅黑";
+        color: #666;
+    }
+
+    /*conent start*/
+    .conent {
+        width: 90px;
+        height: 120px;
+        position: absolute;
+        top: 20px;
+    }
+
+    .conent .sition {
+        width: 90px;
+        height: 120px;
+        position: relative;
+    }
+
+    .conent .sition .c_header {
+        width: 90px;
+        text-align: center;
+        cursor: move;
+    }
+
+    .conent .sition .c_header .txt {
+        color: #00CC00;
+        font-weight: 600;
+        font-size: 15px;
+        line-height: 30px;
+        box-shadow: 1px 1px 1px 1px #000;
+        text-shadow: 1px 1px 1px #000;
+    }
+
+    .conent .sition .c_adver {
+        width: 90px;
+        height: 90px;
+        background: url("img/love.png") no-repeat;
+        cursor: pointer;
+    }
+
+    .conent .sition .sign {
+        width: 0px;
+        height: 10px;
+        border: 2px solid #000;
+        display: block;
+        position: absolute;
+        top: 27px;
+        left: 46px;
+    }
+
+    /*end conent*/
+    /*data start*/
+    .data {
+        width: 260px;
+        height: 130px;
+        margin: 255px auto;
+        color: #036;
+    }
+
+    .data p {
+        line-height: 20px;
+    }
+
+    .data p .high {
+        color: red;
+    }
+
+    .data p .dispaly {
+        color: #00F;
+    }
+
+    /*end data*/
+    </style>
+    <style>
+        body{
+              margin: 0;
+              background-size: cover;
+              overflow: hidden;
+          }
+          .snowfall-flakes::before,.snowfall-flakes::after{
+              content: "";
+              width: 10px;
+              height: 16px;
+              background-color: red;
+              border-radius: 5px 5px 1px 1px;
+              position: absolute;
+          }
+          .snowfall-flakes::before{
+              transform: rotate(-45deg);
+          }
+          .snowfall-flakes::after{
+              transform: rotate(45deg);
+              left: 4.3px;
+          }
+
+      </style>
+</head>
+
+<body background="img/sea.png" style=" background-repeat:no-repeat ;background-size:100% 100%;
+background-attachment: fixed;">
+    <div class="conent">
+        <div class="sition">
+            <div class="c_adver" data-bs-toggle="modal" data-bs-target="#myModal"></div>
+        </div>
+    </div>
+    <script type="text/javascript">
+    document.documentElement.style.overflow = 'hidden';
+    document.body.style.overflow = 'hidden';
+    </script>
+    <div class="container-fluid mt-3" style="position:fixed; bottom:10px; ">
+        <div class="row">
+            <a href="login.html">
+                <button type="button" class="btn btn-danger">我也想扔爱情瓶</button>
+            </a>
+        </div>
+    </div>
+    <div class="modal fade" id="myModal">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">爱情海の爱</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <h3 id="hanhan">我爱你xxx</h3>
+                </div>
+                <div class="modal-footer">
+                    <button id="love" type="button" class="btn btn-success">为爱情点赞</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+    $(document).snowfall({ flakeCount: 10, maxSpeed: 5 });
+    </script>
+    <script type="text/javascript">
+    $(function() {
+        var timer = null; /*定时器*/
+        var _left = 0; /*默认left距离*/
+        var _top = 20; /*默认top距离*/
+        var top_folg = false; /*控制高度-锁*/
+        var left_folg = true; /*控制宽度-锁*/
+        var win_width = $(window).width() - $(".conent").width(); /*获取并计算浏览器初始宽度*/
+        var win_height = $(window).height() - $(".conent").height() * 2; /*获取并计算浏览器初始高度*/
+        $("#liulan").html(win_height + "px");
+        $("#sumwid").html(win_width + "px");;
+        action(); /*执行走动*/
+        function action() {
+            timer = setInterval(function() {
+                if (!top_folg) {
+                    _top++;
+                    if (_top >= win_height) { top_folg = true; };
+                } else {
+                    _top--;
+                    if (_top <= 0) { top_folg = false; };
+                };
+                if (left_folg) {
+                    _left++;
+                    if (_left >= win_width) { left_folg = false; };
+                } else {
+                    _left--;
+                    if (_left <= 0) { left_folg = true; };
+                };
+                $("#textone").html(_top + "px");
+                $("#timewid").html(_left + "px");
+                $(".conent").animate({
+                    left: _left,
+                    top: _top
+                }, 3);
+            }, 15);
+        };
+    });
+    </script>
+    <script>
+    $(document).ready(function() {
+        var love = 0; //点赞数量为0
+        var s = "lOVE" //表白内容
+        var id;
+        $(".conent").click(function() {
+            //进行Ajax通信 和修改内容
+            $(document).ready(function() {
+                $.get("http://localhost:8080/api/message/random", function(data, status) {
+                    id = data.id;
+                    $.get("http://localhost:8080/api/message?id=" + id, function(data2, status) {
+                        $("#hanhan").text(data2.content);
+                    });
+                });
+            });
+        });
+        $("#love").click(function() {
+            alert("oh yeah!!");
+        });
+
+    });
+    </script>
+</body>

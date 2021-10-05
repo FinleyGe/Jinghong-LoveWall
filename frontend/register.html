@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>爱情海</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/5.1.1/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/popper.js/2.9.3/umd/popper.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/5.1.1/js/bootstrap.min.js"></script>
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script type="text/javascript" src="js/md5.js"></script>
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+
+<body>
+    <h3 style=" text-align:center;">注册账号</h3>
+    <br>
+    <br>
+    <br>
+    <div id="app">
+        <div style="padding-left:10px;padding-right:10px;" class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">电子邮箱地址</label>
+            <input type="email" class="form-control" id="Input1" placeholder="fenghan520@love.com" v-model="useremail">
+        </div>
+        <div style="padding-left:10px;padding-right:10px;" class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">昵称</label>
+            <input type="email" class="form-control" id="Input2" placeholder="fenghan" v-model="username">
+        </div>
+        <div style="padding-left:10px;padding-right:10px;" class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">密码</label>
+            <input type="password" class="form-control" id="Input3" v-model="userpassword">
+        </div>
+        <div style=" text-align:center;">
+            <button type="button" id="register" class="btn btn-primary">注册</button>
+        </div>
+    </div>
+    <script type="text/javascript">
+    var email;
+    var name;
+    var password;
+    const app = {
+        data() {
+            return {
+                useremail: "",
+                userpassword: "",
+                username: ""
+            }
+        },
+        watch: {
+            useremail: function(val) {
+                email = val
+            },
+            username: function(val) {
+                name = val
+            },
+            userpassword: function(val) {
+                password = val
+            }
+        }
+    }
+    vm = Vue.createApp(app).mount('#app')
+
+    $("#register").click(function() {
+        password = hex_md5(password);
+        $.post("http://localhost:8080/api/register", {
+                "email": email,
+                "username": name,
+                "password": password,
+            },
+            function(data, status) {
+                if (data.return_value == 0) {
+                    alert("注册成功 即将跳转页面");
+                    window.location.href = "login.html";
+                }
+                if (data.return_value == -1) {
+                    alert("您已经注册了请登录");
+                    window.location.href = "login.html";
+                }
+                if (data.return_value == -2) {
+                    alert("服务器错误");
+                }
+                if (data.return_value == -3) {
+                    alert("请求错误");
+                }
+            });
+    });
+    </script>
+</body>
+
+</html>
