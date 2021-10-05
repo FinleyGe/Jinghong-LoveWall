@@ -2,7 +2,7 @@
  * @Author: F1nley
  * @Date: 2021-10-04 11:43:49
  * @LastEditors: F1nley
- * @LastEditTime: 2021-10-05 16:12:25
+ * @LastEditTime: 2021-10-05 16:18:59
  * @Description:
  */
 
@@ -118,21 +118,23 @@ func RandomMessageGet(c *gin.Context) {
 	if message["anonymous"] == "0" {
 		// 是匿名的
 		c.JSON(http.StatusOK, gin.H{
-			"return_value":   0,
-			"uid":            0,
-			"content":        message["content"],
-			"permit_comment": message["permit_comment"],
-			"create_time":    message["create_time"],
-			"update_time":    message["update_time"],
+			"return_value": 0,
+			"id":           message["id"],
+			// "uid":            0,
+			// "content":        message["content"],
+			// "permit_comment": message["permit_comment"],
+			// "create_time":    message["create_time"],
+			// "update_time":    message["update_time"],
 		})
 	} else if message["anonymous"] == "1" {
 		c.JSON(http.StatusOK, gin.H{
-			"return_value":   0,
-			"uid":            message["uid"],
-			"content":        message["content"],
-			"permit_comment": message["permit_comment"],
-			"create_time":    message["create_time"],
-			"update_time":    message["update_time"],
+			"return_value": 0,
+			"id":           message["id"],
+			// "uid":            message["uid"],
+			// "content":        message["content"],
+			// "permit_comment": message["permit_comment"],
+			// "create_time":    message["create_time"],
+			// "update_time":    message["update_time"],
 		})
 	} else {
 		c.JSON(http.StatusInternalServerError, gin.H{
