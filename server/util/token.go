@@ -2,7 +2,7 @@
  * @Author: F1nley
  * @Date: 2021-10-03 10:40:15
  * @LastEditors: F1nley
- * @LastEditTime: 2021-10-04 11:24:34
+ * @LastEditTime: 2021-10-05 19:15:48
  * @Description: token有关的工具类
  */
 package util
@@ -18,7 +18,6 @@ import (
 var commonIV = []byte{0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0a, 0x0b, 0x0c, 0x0d, 0x0e, 0x0f}
 var c cipher.Block
 var cfb, cfbdec cipher.Stream
-var isInited bool = false
 
 func initToken() error {
 	var e error = nil
@@ -29,32 +28,21 @@ func initToken() error {
 	cfb = cipher.NewCFBEncrypter(c, commonIV)
 	cfbdec = cipher.NewCFBDecrypter(c, commonIV)
 
-	isInited = true
 	return e
 }
 
 func GetToken(uid int64) (string, error) {
 	var err error
-	if !isInited {
-		err = initToken()
-		if err != nil {
-			return "", err
-		}
-	}
-
+	initToken()
 	platinText := []byte(strconv.FormatInt(uid, 10))
 	cipherText := make([]byte, len(platinText))
 	cfb.XORKeyStream(cipherText, platinText)
 	return base64.StdEncoding.EncodeToString(cipherText), err
+
 }
 
 func DecodeToken(data string) (int64, error) {
-	if !isInited {
-		err := initToken()
-		if err != nil {
-			return 0, err
-		}
-	}
+	initToken()
 	cipherText, err := base64.StdEncoding.DecodeString(data)
 	if err != nil {
 		return 0, err
