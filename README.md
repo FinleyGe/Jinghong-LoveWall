@@ -157,6 +157,7 @@ URL:domain:port/api/message/random
     其余参数参照[5]
 }
 ```
+
 **注意，这里的返回值多了一个id，也就是文章的id**
 *为什么5没有id？因为这是不必要的*
 
@@ -204,3 +205,4 @@ URL:domain:port/api/message/delete
                      -2 // token错误
 }
 ```
+=======
