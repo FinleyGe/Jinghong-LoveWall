@@ -2,7 +2,7 @@
  * @Author: F1nley
  * @Date: 2021-10-04 11:44:58
  * @LastEditors: F1nley
- * @LastEditTime: 2021-10-04 11:44:58
+ * @LastEditTime: 2021-10-04 21:44:39
  * @Description:
  */
 package controllers
@@ -10,7 +10,6 @@ package controllers
 import (
 	"Jinghong-LoveWall/server/database"
 	"Jinghong-LoveWall/server/util"
-	"fmt"
 	"log"
 	"net/http"
 
@@ -110,7 +109,7 @@ func RegisterPost(c *gin.Context) {
 	if err != nil {
 		log.Fatalln(err)
 	}
-	fmt.Println(aff)
+	log.Println(aff)
 	// 返回返回值
 
 	c.JSON(200, gin.H{"return_value": "0"})
