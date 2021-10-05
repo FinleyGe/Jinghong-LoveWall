@@ -184,3 +184,22 @@ URL:domain:port/api/message
                      -3 // 服务器错误
 }
 ```
+
+## [8] 删除信息 [POST]
+URL:domain:port/api/message/delete
+#### 传入数据
+```
+{
+    "id" : // 信息的id
+    "token" : // 用户的token
+}
+```
+
+#### 传出数据
+```
+{
+    "return_value" : 0 // 成功
+                     -1 // 参数错误
+                     -2 // token错误
+}
+```

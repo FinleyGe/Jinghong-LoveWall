@@ -2,7 +2,7 @@
  * @Author: F1nley
  * @Date: 2021-10-04 11:43:49
  * @LastEditors: F1nley
- * @LastEditTime: 2021-10-05 10:16:02
+ * @LastEditTime: 2021-10-05 15:34:57
  * @Description:
  */
 
@@ -164,6 +164,23 @@ func UpdateMessage(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"return_value": "-2",
 		})
+		return
+	}
+}
+
+func DeleteMessagePost(c *gin.Context) {
+	id, err := strconv.ParseInt(c.PostForm("id"), 10, 64)
+	if err != nil || id <= 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"return_value": "-1"})
+		return
+	}
+	if database.TokenValid(c.PostForm("token")) {
+		c.JSON(http.StatusOK, gin.H{
+			"return_value": "0",
+		})
+		return
+	} else {
+		c.JSON(http.StatusBadRequest, gin.H{"return_value": "-2"})
 		return
 	}
 }

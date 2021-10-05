@@ -2,7 +2,7 @@
  * @Author: F1nley
  * @Date: 2021-10-04 12:18:18
  * @LastEditors: F1nley
- * @LastEditTime: 2021-10-05 10:36:37
+ * @LastEditTime: 2021-10-05 15:34:14
  * @Description: message
  */
 
@@ -62,5 +62,13 @@ func UpdateMessage(id int64, content string, pc string, an string) error {
 	if a == 0 {
 		log.Fatalln(a)
 	}
+	return e
+}
+
+func DeleteMessageById(id int64) error {
+	message := new(models.Message)
+	message.Id = id
+	a, e := MessageTable.Delete(message)
+	log.Println("Delete Message:", a)
 	return e
 }
