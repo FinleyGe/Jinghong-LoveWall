@@ -2,7 +2,7 @@
  * @Author: F1nley
  * @Date: 2021-10-04 12:18:18
  * @LastEditors: F1nley
- * @LastEditTime: 2021-10-04 21:28:42
+ * @LastEditTime: 2021-10-05 15:34:14
  * @Description: message
  */
 
@@ -10,6 +10,7 @@ package database
 
 import (
 	"Jinghong-LoveWall/server/models"
+	"fmt"
 	"log"
 )
 
@@ -40,4 +41,34 @@ func GetMessaegByUid(uid int64) ([]models.Message, error) {
 
 func RandomMessage() ([]map[string]string, error) {
 	return MessageTable.QueryString("SELECT * FROM message ORDER BY RANDOM() limit 1")
+}
+
+func UpdateMessage(id int64, content string, pc string, an string) error {
+	message := new(models.Message)
+	message.Id = id
+	message.Content = content
+	if pc == "0" {
+		message.Permit_comment = false
+	} else {
+		message.Permit_comment = true
+	}
+	if an == "0" {
+		message.Anonymous = false
+	} else {
+		message.Anonymous = true
+	}
+	fmt.Println(message)
+	a, e := MessageTable.ID(id).Cols("content", "anonymous", "permit_comment", "update_time").Update(message)
+	if a == 0 {
+		log.Fatalln(a)
+	}
+	return e
+}
+
+func DeleteMessageById(id int64) error {
+	message := new(models.Message)
+	message.Id = id
+	a, e := MessageTable.Delete(message)
+	log.Println("Delete Message:", a)
+	return e
 }

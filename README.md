@@ -153,6 +153,56 @@ URL:domain:port/api/message/random
 {
     "return_value" : 0 // 成功
                      -1 // 服务器错误
+    "id" : 123 // 文章的id
     其余参数参照[5]
 }
 ```
+
+**注意，这里的返回值多了一个id，也就是文章的id**
+*为什么5没有id？因为这是不必要的*
+
+
+## [7] 修改信息 [POST]
+URL:domain:port/api/message
+
+#### 传入数据
+```
+{
+    "id" : 123 // 文章的id
+    "token" : // 你的token
+    "content" : "文章信息"  // 文章信息
+    "permit_comment" : 
+    "anonymous": 
+}
+```
+
+#### 传出数据
+
+```
+{
+    "return_value" : 0 // 成功
+                     -1 // 参数错误
+                     -2 // token 错误 （没有登录）
+                     -3 // 服务器错误
+}
+```
+
+## [8] 删除信息 [POST]
+URL:domain:port/api/message/delete
+#### 传入数据
+```
+{
+    "id" : // 信息的id
+    "token" : // 用户的token
+}
+```
+
+#### 传出数据
+```
+{
+    "return_value" : 0 // 成功
+                     -1 // 参数错误
+                     -2 // token错误
+}
+```
+=======
